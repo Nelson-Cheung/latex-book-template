@@ -1,0 +1,163 @@
+\chapter{利用\LaTeX 排版数学公式}
+在\LaTeX 中排版数学公式需要$amsmath$宏包（已经包含在本模板中），对多行公式的排版提供了有力的支持。在实验报告的书写中，主要以$amsmath$宏包的内容为主，其余内容不做阐述。
+\section{公式排版基础}
+在\LaTeX 中书写数学公式时必须带有数学环境，数学环境内可以识别特殊的命令并且字体改变为数学字体，一般数学环境有两种，书写方式如下：
+\begin{itemize}
+\item \textbf{行内公式：} 行内公式是出现在文字陈述中间的数学公式，需要用双\$符号括起来，例如我们知道对于矩阵而言，乘法交换率是不成立的，也就是说\\$\forall A\neq B,\, \exists A\times B\neq B\times      A$(\verb|$A\times B\neq B\times      A$|)，书写时除去命令后必须的空格外，其他的空格会被一概忽略，至于如何添加空白会在后面叙述。
+\item \textbf{行间公式：} 行间公式是出现在文字陈述段落中间的数学公式，一般需要编号。当行间公式需要编号时可以使用equation环境，不需要编号时可以使用简单的方式编写行间公式：\verb|\[myEquation\]|
+\end{itemize}
+
+在数学环境内，不允许有多于的空格与空行，需要强制空格可以使用命令\verb|\,|、\verb|\quad|、\verb|\qquad|等，他们的产生的空白距离有所不同。其次数学环境中的所有字母都会被当做变量处理，采用数学字体显示，当需要在数学环境中输入公式时，可以使用命令\verb|\text{}|。
+\section{排版数学公式}
+在以往的实验报告中，数学公式都会使用word中的mathtype书写，在较高的版本中可以复制mathtype为\LaTeX 代码，但这种投机取巧的方法写出来的符号会非常的丑，并且速度不会比直接使用\LaTeX 书写快多少。下面，作者会首先叙述一部分必要的知识，其次的内容会以实例的方式展现，需与tex文档（源文档）配合学习。
+
+\begin{enumerate}[1.]
+\item 上标的表示方式为\verb|a^{2}|，显示结果为$a^{2}$，当上标内容单一时可以省略大括号，如\verb|a^2|也可以显示为$a^2$，当需要输入符号$\^$时输入\verb|\^|即可。
+\item 下表的表示方式为\verb|a_{2}|，显示结果为$a_{2}$，当小标内容单一时也可以省略大括号，当需要输入符号$\_$时输入\verb|\_|即可。
+\item 同时需要上下标时书写没有先后顺序，\verb|a^{x+y}_{x_1}|与\verb|a_{x_1}^{x+y}|结果都是$a_{x_1}^{x+y}$。
+\item 对于巨运算符，如果直接书写\verb|\sum^{n}_{i=1}n!|会容易显示为$\sum^{n}_{i=1}n!$，而添加命令\verb|\limits|后，\verb|\sum\limits^{n}_{i=1}n!|则会显示为$\sum\limits^{n}_{i=1}n!$。
+\item 书写分数的命令为\verb|\frac{text}{den}|，其中text为分子部分，den部分为分母部分，如\verb|\frac{1}{2}|会显示为$\frac{1}{2}$，如果觉得分数略小可以适当的使用命令\verb|\dfrac{text}{den}|
+显示为$\dfrac{1}{2}$。
+\item 导数直接使用单引号即可\verb|f' f'' f'''|显示为$f' f'' f'''$，常见的运算符号与巨运算符如\\\verb|+ - \times \div = \sum \prod \int|，分别为$+ - \times \div = \sum \prod \int$，更多的基础符号见amsmath宏包或lshort，下面也给出了支持所有的符号大全与手写符号识别的网址。
+\LaTeX 支持的符号大全：
+\url{http://mirrors.ctan.org/info/symbols/comprehensive/symbols-a4.pdf}
+
+手写符号识别：
+\url{http://detexify.kirelabs.org/classify.html}
+\item 需要输入大括号时需输入\verb|\{\}|。
+\end{enumerate}
+下面会用一些函数、习题、定理、证明过程或是计算过程作为实例：
+
+\textbf{Stolz 定理}：设$\{y_n\}$是严格单调增加的正无穷大量，且
+\[
+\lim\limits_{n \to \infty}\frac{x_n-x_{n-1}}{y_n-y_{n-1}}=a\quad (a\text{可以为有限量，}+\infty\text{与}-\infty)\text{，}
+\]
+则
+\[
+\lim\limits_{n \to \infty}\frac{x_n}{y_n}=a\text{。}
+\]
+
+求极限
+\[
+\lim\limits_{n \to \infty}\frac{1^k+2^k+\cdots+n^k}{n^{k+1}}(k\text{为正整数})\text{。}
+\]
+
+由已知，可得
+\begin{equation}\label{equ1}
+\lim\limits_{n \to \infty}\frac{a^n}{n!}=0\text{。}
+\end{equation}
+
+设函数
+\[
+f(x)=(\frac{x+\exp^{\frac{1}{x}}}{1+\exp^{\frac{4}{x}}}+\frac{\sin x}{|x|})\text{，}
+\]
+问当$x\to 0$时，$f(x)$的极限是否存在？
+
+设$f(x)$在$[a,b]$上连续，且$f(x)>0$，证明
+\begin{equation}
+\frac{1}{b-a}\int_{a}^{b}\ln f(x)\text{d}x\leqslant \ln \left(\frac{1}{b-a}\int_{a}^{b}f(x)\text{d}x\right)\text{。}
+\end{equation}
+
+常用的希腊字符如下：
+\[\alpha \beta \gamma \delta \varepsilon \zeta \theta \eta \mu \xi \pi \sigma \omega \phi\]
+\section{多行公式的排版}
+在书写报告时，时长会遇到多行排版，如矩阵、分段函数等等，在下文将介绍部分常用的环境，用于排版多行公式。
+
+多行排版的环境使用方式大致类似，需要对齐的位置利用$\&$分割，行末需要使用\verb|\\|分割。
+\subsection{align环境}
+align环境会给环境内的每一行公式编号，去掉编号可以使用\verb|\notag|，使用方式如下：
+\begin{minted}{LaTeX}
+\begin{align}
+a & = b + c \\
+a & = b + c \\
+x + y & = d + e \notag
+\end{align}
+\end{minted}
+显示为
+\begin{align}
+a & = b + c \\
+a & = b + c \\
+x + y & = d + e \notag
+\end{align}
+
+align环境会在$\&$符号处对齐，多个$\&$会分段对齐。
+\subsection{aligned环境}
+与align环境不同，aligned环境会给公式整体一个编号，而不是每一行都有编号，同时需要equation环境套在外面。
+\begin{minted}{LaTeX}
+\begin{equation}
+	\begin{aligned}
+		a & = b + c \\
+		x + y & = d + e 
+	\end{aligned}
+\end{equation}
+\end{minted}
+显示为
+\begin{equation}
+	\begin{aligned}
+		a & = b + c \\
+		x + y & = d + e 
+	\end{aligned}
+\end{equation}
+split 环境和aligned 环境用法类似，也用于和equation 环境套用，区别是split 只能
+将每行的一个公式分两栏，aligned 允许每行多个公式多栏。
+\subsection{array环境}
+array环境用于排版数学数组、矩阵等，数组可作为一个公式块，在外套用\verb|\left|、\verb|\right|等定界符。跟在环境名后的\verb|{cccc}|意为矩阵4列均居中（c代表居中、l代表左对齐、r代表右对齐，更仔细的将在表格排版处讲述），具体实例如下：
+\begin{minted}{LaTeX}
+\[ 
+\mathbf{X} = \left(
+\begin{array}{cccc}
+x_{11} & x_{12} & \ldots & x_{1n}\\
+x_{21} & x_{22} & \ldots & x_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n1} & x_{n2} & \ldots & x_{nn}\\
+\end{array} \right) 
+\]
+\end{minted}
+显示为
+\[ 
+\mathbf{X} = \left(
+\begin{array}{cccc}
+x_{11} & x_{12} & \ldots & x_{1n}\\
+x_{21} & x_{22} & \ldots & x_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n1} & x_{n2} & \ldots & x_{nn}\\
+\end{array} \right) 
+\]
+其中，\verb|\left(|、\verb|\right)|就是矩阵的定界符，小括号可以替换为\verb|[ {|等。
+\subsection{case环境}
+借用之前所述的定界符，使用单侧定界符可以用来书写分段函数，如$\textbf{Riemann}$函数可以书写为：
+\begin{minted}{LaTeX}
+\[
+\mathbf{R}(x)=\left\{\begin{array}{ll}
+\frac{1}{p},&x=\frac{q}{p}(p\in \mathbf{N}^{+},q\in \mathbf{Z}-\{0\},p,q\text{互质}),\\
+1,&x=0,\\
+0,&x\text{为无理数}
+\end{array}\right.
+\]
+\end{minted}
+显示为
+\[
+\mathbf{R}(x)=\left\{\begin{array}{ll}
+\frac{1}{p},&x=\frac{q}{p}(p\in \mathbf{N}^{+},q\in \mathbf{Z}-\{0\},p,q\text{互质}),\\
+1,&x=0,\\
+0,&x\text{为无理数}
+\end{array}\right.
+\]
+对于这类分段函数，可以使用更简单的cases环境来完成
+\begin{minted}{LaTeX}
+\[
+\mathbf{R}(x)=\begin{cases}
+\frac{1}{p},&x=\frac{q}{p}(p\in \mathbf{N}^{+},q\in \mathbf{Z}-\{0\},p,q\text{互质}),\\
+1,&x=0,\\
+0,&x\text{为无理数}
+\end{cases}
+\]
+\end{minted}
+显示为
+\[
+\mathbf{R}(x)=\begin{cases}
+\frac{1}{p},&x=\frac{q}{p}(p\in \mathbf{N}^{+},q\in \mathbf{Z}-\{0\},p,q\text{互质}),\\
+1,&x=0,\\
+0,&x\text{为无理数}
+\end{cases}
+\]

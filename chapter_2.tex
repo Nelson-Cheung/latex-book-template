@@ -1,0 +1,98 @@
+\chapter{利用\LaTeX 排版中文文字}
+\LaTeX 的源文件本质上是文本文档，利用Windows自带文本编辑器、note++、word、vim等文本编辑器均可编写出tex文档，至于texwork、texstudio、winedt等则为转述的tex编辑器，提供了语法高亮、匹配查找、自动补全命令等等用途。
+
+除此之外\LaTeX 还可以排版数学公式、图片、表格等等，内容将在后续章节件数。
+\section{\LaTeX 基本的命令与代码结构}
+\LaTeX 命令均由反斜线$\backslash$开头，并为下列两种形式填空后续：
+\begin{itemize}
+\item 由反斜线$\backslash$与一连串字母组成，如\verb|\LaTeX|。注意在命令后需加空格或其他非字母作分隔符；
+\item 由反斜线$\backslash$由后面的非字母符号组成，不需要分隔符，如\verb|\%|（百分号在\LaTeX 中为注释），为转义意。
+\end{itemize}
+
+注意\LaTeX 命令对\textbf{大小写是十分敏感的}，比如输入\verb|\LaTeX|可以得到错落有致的\LaTeX 而输入\verb|\LaTex|或者\verb|\latex|则会报错，不会得到任何内容。
+
+在\LaTeX 中的参数大多在$\{\cdots\}$或是在$[\cdots]$内，如之前所述\verb|\documentclass|\texttt{[CJK, GBK, UTF-8, oneside, a4paper, 12pt]{ctexart}}。
+一些命令会在后面附带*号，带*号与不带*号结果不同。
+
+为使一些状态、效果在局部生效，\LaTeX 引入了\textbf{环境}的用法，需要局部生效的内容被输入在环境内，由\verb|\begin{environment name}{arguments}|开始，由\verb|\end{environment}|结束。其中$environment$为环境名称，\verb|\begin{environment}|与\verb|\end{environment}|内的环境名应该一致，$arguments$为可选参数，环境之间允许嵌套使用。
+\section{\LaTeX 排版中文}
+排版中文文章时，与word不同，无需关注缩进、标题等等，在\LaTeX 中可以方便快捷的设置。一级标题设置代码为\verb|\section{title}|大括号内为一级标题的名称，对应的可以书写二级、三级标题，\LaTeX 命令分别为\verb|\subsection{title}|与\verb|\subsubsection{title}|。书写时，\LaTeX 会自动忽略文字中间的空格，在换行时需要多空一行。另外的，\LaTeX 中的注释为“\%”号。下面给出一个简短的例子。
+\begin{minted}{LaTeX}
+\section{一级标题名称}
+这里是第一章的内容
+% 空一行代表分段，百分号在LaTeX中代表注释
+这里是第一章的内容
+\subsection{二级标题名称}
+这里是1.1的内容
+\end{minted}
+
+用户可以将代码放置在本模板中进行尝试，需要注意的是，在body文件夹内新建文档并书写完后，需要在主文档中依照给定格式导入新书写的文档。
+
+在\LaTeX 中书写中文，无需注意文章标题的编号，在\verb|\section{title}|类命令中，自带有计数器，可以为标题自动编号，这使得用户无需关注排版格式，更多的关注在文档内容上。
+\section{常用环境}
+\subsection{居中}
+在\LaTeX 中有两种居中方式：
+\begin{itemize}
+\item \verb|\centering|，在环境内使用，该环境内所有内容居中
+\item \verb|center| 环境，在环境内的所有内容居中
+\end{itemize}
+\begin{center}
+当使用了\verb|center|环境时候，环境内的所有内容都会被居中显示，且不会首行缩进。如果有特殊需要还可以使用flushleft 和flushright 环境，用于居左或者居右。
+\end{center}
+\subsection{带有编号的显示方式-列表（悬挂缩进）}
+在书写实验报告时，经常会遇到需要分条叙述的方式，在一般书写排版中需要整体悬挂缩进。
+
+在\LaTeX 中常用的两种环境，分别是itemize（无序）环境与enumerate环境（有序）两种环境可以互相嵌套使用，使用方法如下：
+\begin{minted}{LaTeX}
+% itemize环境
+\begin{itemize}
+\item 第一条内容
+\item 第二条内容
+\end{itemize}
+% enumerate环境
+\begin{enumerate}[aa.]
+\item 第一条内容
+\item 第二条内容
+\end{enumerate}
+\end{minted}
+itemize环境会给每一条内容前加$\bullet$，而enumerate环境可以自定义，如(1. 2. 3.或者是A. B. C.)，对应的设置方法需要在环境后的参数中写\verb|1.|、\verb|A.|，需要注意的是在给enumerate环境添加参数时候需要导入enumerate包，否则只会有\verb|1. 2. 3.|的序号，并且无法设置样式。
+\begin{itemize}
+\item 第一条内容
+\item 第二条内容
+\end{itemize}
+\begin{enumerate}[aa.]
+\item 第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容第一条内容
+\item 第二条内容
+\end{enumerate}
+\subsection{代码}
+在实验报告中，多半部分需要加入对应的程序，编写代码的常用环境有verbatim、minted（需要python环境支持）、listings，下面分别叙述。
+
+verbatim环境使用方法简单，但是不够美观，不能实现语法高亮。
+\begin{verbatim}
+#include<stdio.h>
+int main(){
+	printf("hello world");
+	return 0;
+}
+\end{verbatim}
+
+lstlisting环境需要listings包，可以自定义设置，本模板自带listings包并且给出了一种代码环境格式供用户参考。
+\begin{lstlisting}{c}
+#include<stdio.h>
+int main(){
+	printf("hello world");
+	return 0;
+}
+\end{lstlisting}
+
+minted环境需要minted包，并且电脑中安装有python环境。设置xelatex编译为\\\verb|xelatex.exe -synctex=1 -shell-escape -interaction=nonstopmode %.tex|，添加了\\\verb|-shell-escape|参数，可以胜任大部分计算机语言(Lingo除外)，并且自动设置语法高亮。需要注意的是minted会将\verb|Tab|替换为下文中的\verb|^^I|，将所有的\verb|Tab|替换为空格即可，更多内容详见minted宏包文档，Win+R键后输入\verb|texdoc minted|即可查看minted宏包文档，在\LaTeX 中所有宏包的宏包文档均以上述方式打开。
+\begin{minted}{C}
+#include<stdio.h>
+int main(){
+	printf("hello world");
+    return 0; /*将Tab替换为空格*/
+}
+\end{minted}
+
+要排版简短的代码或关键字，可使用\verb|\verb| 命令：\verb|\verb<delim>\LaTeX<delim>|。
+在该命令中所有的\verb|\|都不起作用。
