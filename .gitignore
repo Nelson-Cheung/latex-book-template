@@ -1,3 +1,6 @@
-*.aux *.log *.toc *.out
+*.aux 
+*.log 
+*.toc 
+*.out
 .vscode
 _minted-book
