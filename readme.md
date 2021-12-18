@@ -10,6 +10,12 @@ xelatex -shell-escape book.tex
 ```
 生成的[book.pdf](book.pdf)为模板示例。
 
+部分效果如下(github的内嵌pdf显示器可能无法显示中文......)。
+
+![](gallery/1-1.png)
+
+![](gallery/1-2.png)
+
 # Introduction
 本模板使用`ctexbook`作为`documentclass`，见`book.tex`，如下所示。
 ```latex
