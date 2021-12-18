@@ -10,6 +10,8 @@ xelatex -shell-escape book.tex
 ```
 生成的[book.pdf](book.pdf)为模板示例。
 
+或者直接将项目上传至overleaf，然后将compiler更换成XeLaTeX即可编译。
+
 部分效果如下(github的内嵌pdf显示器可能无法显示中文......)。
 
 ![](gallery/1-1.png)
